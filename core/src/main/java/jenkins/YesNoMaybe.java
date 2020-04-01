@@ -20,35 +20,35 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-package jenkins;
+//  */
+// package jenkins;
 
-/**
- * Enum that represents {@link Boolean} state (including null for the absence.)
- *
- * <p>
- * This is for situations where we can't use {@link Boolean}, such as annotation elements.
- *
- * @author Kohsuke Kawaguchi
- */
-public enum YesNoMaybe {
-    YES,
-    NO,
-    MAYBE;
+// /**
+//  * Enum that represents {@link Boolean} state (including null for the absence.)
+//  *
+//  * <p>
+//  * This is for situations where we can't use {@link Boolean}, such as annotation elements.
+//  *
+//  * @author Kohsuke Kawaguchi
+//  */
+// public enum YesNoMaybe {
+//     YES,
+//     NO,
+//     MAYBE;
 
-    public static Boolean toBoolean(YesNoMaybe v) {
-        if (v==null)    return null;
-        return v.toBool();
-    }
+//     public static Boolean toBoolean(YesNoMaybe v) {
+//         if (v==null)    return null;
+//         return v.toBool();
+//     }
     
-    public Boolean toBool() {
-        switch (this) {
-        case YES:
-            return true;
-        case NO:
-            return false;
-        default:
-            return null;
-        }
-    }
-}
+//     public Boolean toBool() {
+//         switch (this) {
+//         case YES:
+//             return true;
+//         case NO:
+//             return false;
+//         default:
+//             return null;
+//         }
+//     }
+// }
