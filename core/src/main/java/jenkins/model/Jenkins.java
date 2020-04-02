@@ -4329,27 +4329,27 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
             }
         }.start();
     }
-
-    /**
-     * Queues up a restart to be performed once there are no builds currently running.
-     * @since 1.332
-     */
-    public void safeRestart() throws RestartNotSupportedException {
-        final Lifecycle lifecycle = restartableLifecycle();
+public void safeRestart() throws RestartNotSupportedException {
+        //final Lifecycle lifecycle = restartableLifecycle();
         // Quiet down so that we won't launch new builds.
         isQuietingDown = true;
-
+        /*
         new Thread("safe-restart thread") {
             final String exitUser = getAuthentication().getName();
             @Override
             public void run() {
-                try (ACLContext ctx = ACL.as(ACL.SYSTEM)) {
 
+                try (ACLContext ctx = ACL.as(ACL.SYSTEM)) {
+        */
                     // Wait 'til we have no active executors.
                     doQuietDown(true, 0);
 
                     // Make sure isQuietingDown is still true.
                     if (isQuietingDown) {
+
+                        LOGGER.info("Restart in 10 seconds");
+                        restart();
+                        /*
                         servletContext.setAttribute("app",new HudsonIsRestarting());
                         // give some time for the browser to load the "reloading" page
                         LOGGER.info("Restart in 10 seconds");
@@ -4358,14 +4358,17 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
                         for (RestartListener listener : RestartListener.all())
                             listener.onRestart();
                         lifecycle.restart();
+                        */
                     } else {
                         LOGGER.info("Safe-restart mode cancelled");
                     }
+                    /*
                 } catch (Throwable e) {
                     LOGGER.log(Level.WARNING, "Failed to restart Jenkins",e);
                 }
-            }
-        }.start();
+                */
+           // }
+        //}.start();
     }
 
     @Extension @Restricted(NoExternalUse.class)
