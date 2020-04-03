@@ -4329,36 +4329,16 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
             }
         }.start();
     }
-public void safeRestart() throws RestartNotSupportedException {
-        //final Lifecycle lifecycle = restartableLifecycle();
+    public void safeRestart() throws RestartNotSupportedException {
         // Quiet down so that we won't launch new builds.
         isQuietingDown = true;
-        /*
-        new Thread("safe-restart thread") {
-            final String exitUser = getAuthentication().getName();
-            @Override
-            public void run() {
-*/
                 try (ACLContext ctx = ACL.as(ACL.SYSTEM)) {
-        
                     // Wait 'til we have no active executors.
                     doQuietDown(true, 0);
-
                     // Make sure isQuietingDown is still true.
                     if (isQuietingDown) {
-
                         LOGGER.info("Restart in 10 seconds");
                         restart();
-                        /*
-                        servletContext.setAttribute("app",new HudsonIsRestarting());
-                        // give some time for the browser to load the "reloading" page
-                        LOGGER.info("Restart in 10 seconds");
-                        Thread.sleep(TimeUnit.SECONDS.toMillis(10));
-                        LOGGER.info(String.format("Restarting VM as requested by %s",exitUser));
-                        for (RestartListener listener : RestartListener.all())
-                            listener.onRestart();
-                        lifecycle.restart();
-                        */
                     } else {
                         LOGGER.info("Safe-restart mode cancelled");
                     }
@@ -4366,9 +4346,6 @@ public void safeRestart() throws RestartNotSupportedException {
                 } catch (Throwable e) {
                     LOGGER.log(Level.WARNING, "Failed to restart Jenkins",e);
                 }
-            
-           // }
-        //}.start();
     }
 
     @Extension @Restricted(NoExternalUse.class)
