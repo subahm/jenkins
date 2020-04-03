@@ -4338,9 +4338,9 @@ public void safeRestart() throws RestartNotSupportedException {
             final String exitUser = getAuthentication().getName();
             @Override
             public void run() {
-
+*/
                 try (ACLContext ctx = ACL.as(ACL.SYSTEM)) {
-        */
+        
                     // Wait 'til we have no active executors.
                     doQuietDown(true, 0);
 
@@ -4362,11 +4362,11 @@ public void safeRestart() throws RestartNotSupportedException {
                     } else {
                         LOGGER.info("Safe-restart mode cancelled");
                     }
-                    /*
+                    
                 } catch (Throwable e) {
                     LOGGER.log(Level.WARNING, "Failed to restart Jenkins",e);
                 }
-                */
+            
            // }
         //}.start();
     }
