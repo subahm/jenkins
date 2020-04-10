@@ -77,6 +77,7 @@ public @interface Extension {
      *
      * @since 1.306
      */
+
     double ordinal() default 0;
 
     /**
@@ -89,18 +90,15 @@ public @interface Extension {
      * Marks whether this extension works with dynamic loading of a plugin.
      *
      * <p>
-     * "Yes" indicates an explicit sign-off from the developer indicating this component supports that.
-     * Similarly, "No" indicates that this extension is known not to support it, which forces Jenkins
+     * True indicates an explicit sign-off from the developer indicating this component supports that.
+     * Similarly, False indicates that this extension is known not to support it, which forces Jenkins
      * not to offer dynamic loading as an option.
      *
-     * <p>
-     * The "MayBe" value indicates that there's no such explicit sign-off. So the dynamic loading may or may not
-     * work.
      *
      * <p>
-     * If your plugin contains any extension that has dynamic loadability set to NO, then Jenkins
+     * If your plugin contains any extension that has dynamic loadability set to False, then Jenkins
      * will prompt the user to restart Jenkins to have the plugin take effect. If every component
-     * is marked as YES, then Jenkins will simply dynamic load the plugin without asking the user.
+     * is marked as True, then Jenkins will simply dynamic load the plugin without asking the user.
      * Otherwise, Jenkins will ask the user if he wants to restart, or go ahead and dynamically deploy.
      *
      * @since 1.442
