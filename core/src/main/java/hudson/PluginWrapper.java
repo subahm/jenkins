@@ -34,7 +34,6 @@ import hudson.model.UpdateCenter;
 import hudson.model.UpdateSite;
 import hudson.util.VersionNumber;
 import io.jenkins.lib.versionnumber.JavaSpecificationVersion;
-//import jenkins.YesNoMaybe;
 import jenkins.model.Jenkins;
 import jenkins.security.UpdateSiteWarningsMonitor;
 import jenkins.util.java.JavaUtils;

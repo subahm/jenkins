@@ -57,7 +57,6 @@ import jenkins.ExtensionRefreshException;
 import jenkins.InitReactorRunner;
 import jenkins.MissingDependencyException;
 import jenkins.RestartRequiredException;
-// import jenkins.YesNoMaybe;
 import jenkins.install.InstallState;
 import jenkins.install.InstallUtil;
 import jenkins.model.Jenkins;

@@ -22,8 +22,6 @@
  * THE SOFTWARE.
  */
 package hudson;
-
-// import jenkins.YesNoMaybe;
 import net.java.sezpoz.Indexable;
 
 import java.lang.annotation.Documented;
@@ -32,7 +30,6 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-// import static jenkins.YesNoMaybe.MAYBE;
 
 /**
  * Marks a field, a method, or a class for automatic discovery, so that Hudson can locate
@@ -108,5 +105,4 @@ public @interface Extension {
      *
      * @since 1.442
      */
-    // YesNoMaybe dynamicLoadable() default MAYBE;
 }
