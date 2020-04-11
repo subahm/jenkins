@@ -103,13 +103,19 @@ public class ClassicPluginStrategy implements PluginStrategy {
     }
 
     @Override public String getShortName(File archive) throws IOException {
-        Manifest manifest;
+        validateArchive(archive);
+        Manifest manifest = getManifest(archive);
+        return PluginWrapper.computeShortName(manifest, archive.getName());
+    }
+    private static void validateArchive(File archive) throws IOException{
         if (!archive.exists()) {
             throw new FileNotFoundException("Failed to load " + archive + ". The file does not exist");
         } else if (!archive.isFile()) {
             throw new FileNotFoundException("Failed to load " + archive + ". It is not a file");
         }
-
+    }
+    private static Manifest getManifest(File archive) throws IOException{
+        Manifest manifest;
         if (isLinked(archive)) {
             manifest = loadLinkedManifest(archive);
         } else {
@@ -120,7 +126,7 @@ public class ClassicPluginStrategy implements PluginStrategy {
                 throw new IOException("Failed to load " + archive, ex);
             }
         }
-        return PluginWrapper.computeShortName(manifest, archive.getName());
+        return manifest;
     }
 
     private static boolean isLinked(File archive) {
