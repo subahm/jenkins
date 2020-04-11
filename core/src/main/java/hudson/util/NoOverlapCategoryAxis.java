@@ -1,18 +1,18 @@
 /*
  * The MIT License
- * 
+ *
  * Copyright (c) 2004-2009, Sun Microsystems, Inc., Kohsuke Kawaguchi
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -41,7 +41,7 @@ import java.awt.geom.Point2D;
 /**
  * This class implements X-axis label skipping algorithm to
  * avoid drawing overlapping labels.
- * 
+ *
  * @author Kohsuke Kawaguchi
  */
 public class NoOverlapCategoryAxis extends CategoryAxis {
@@ -77,39 +77,17 @@ public class NoOverlapCategoryAxis extends CategoryAxis {
 
                 CategoryLabelPosition position
                         = this.getCategoryLabelPositions().getLabelPosition(edge);
-                double x0 = 0.0;
-                double x1 = 0.0;
-                double y0 = 0.0;
-                double y1 = 0.0;
-                if (edge == RectangleEdge.TOP) {
-                    x0 = getCategoryStart(categoryIndex, ticks.size(),
-                            dataArea, edge);
-                    x1 = getCategoryEnd(categoryIndex, ticks.size(), dataArea,
-                            edge);
-                    y1 = state.getCursor() - this.getCategoryLabelPositionOffset();
-                    y0 = y1 - state.getMax();
-                } else if (edge == RectangleEdge.BOTTOM) {
-                    x0 = getCategoryStart(categoryIndex, ticks.size(),
-                            dataArea, edge);
-                    x1 = getCategoryEnd(categoryIndex, ticks.size(), dataArea,
-                            edge);
-                    y0 = state.getCursor() + this.getCategoryLabelPositionOffset();
-                    y1 = y0 + state.getMax();
-                } else if (edge == RectangleEdge.LEFT) {
-                    y0 = getCategoryStart(categoryIndex, ticks.size(),
-                            dataArea, edge);
-                    y1 = getCategoryEnd(categoryIndex, ticks.size(), dataArea,
-                            edge);
-                    x1 = state.getCursor() - this.getCategoryLabelPositionOffset();
-                    x0 = x1 - state.getMax();
-                } else if (edge == RectangleEdge.RIGHT) {
-                    y0 = getCategoryStart(categoryIndex, ticks.size(),
-                            dataArea, edge);
-                    y1 = getCategoryEnd(categoryIndex, ticks.size(), dataArea,
-                            edge);
-                    x0 = state.getCursor() + this.getCategoryLabelPositionOffset();
-                    x1 = x0 - state.getMax();
-                }
+
+
+
+                double[] pointValues = setLines(categoryIndex, ticks, tick, state, edge, dataArea);
+
+
+                double x0 = pointValues[0];
+                double x1 = pointValues[1];
+                double y0 = pointValues[2];
+                double y1 = pointValues[3];
+
                 Rectangle2D area = new Rectangle2D.Double(x0, y0, (x1 - x0),
                         (y1 - y0));
                 if (r == null || !r.intersects(area)) {
@@ -163,5 +141,47 @@ public class NoOverlapCategoryAxis extends CategoryAxis {
             }
         }
         return state;
+    }
+
+    public double[] setLines(int categoryIndex, java.util.List ticks,  CategoryTick tick, AxisState state,
+                             RectangleEdge edge, Rectangle2D dataArea){
+        double x0 = 0.0;
+        double x1 = 0.0;
+        double y0 = 0.0;
+        double y1 = 0.0;
+
+
+        if (edge == RectangleEdge.TOP) {
+            x0 = getCategoryStart(categoryIndex, ticks.size(),
+                    dataArea, edge);
+            x1 = getCategoryEnd(categoryIndex, ticks.size(), dataArea,
+                    edge);
+            y1 = state.getCursor() - this.getCategoryLabelPositionOffset();
+            y0 = y1 - state.getMax();
+        } else if (edge == RectangleEdge.BOTTOM) {
+            x0 = getCategoryStart(categoryIndex, ticks.size(),
+                    dataArea, edge);
+            x1 = getCategoryEnd(categoryIndex, ticks.size(), dataArea,
+                    edge);
+            y0 = state.getCursor() + this.getCategoryLabelPositionOffset();
+            y1 = y0 + state.getMax();
+        } else if (edge == RectangleEdge.LEFT) {
+            y0 = getCategoryStart(categoryIndex, ticks.size(),
+                    dataArea, edge);
+            y1 = getCategoryEnd(categoryIndex, ticks.size(), dataArea,
+                    edge);
+            x1 = state.getCursor() - this.getCategoryLabelPositionOffset();
+            x0 = x1 - state.getMax();
+        } else if (edge == RectangleEdge.RIGHT) {
+            y0 = getCategoryStart(categoryIndex, ticks.size(),
+                    dataArea, edge);
+            y1 = getCategoryEnd(categoryIndex, ticks.size(), dataArea,
+                    edge);
+            x0 = state.getCursor() + this.getCategoryLabelPositionOffset();
+            x1 = x0 - state.getMax();
+        }
+
+        double[] pointArray = new double[]{x0, x1, y0, y1};
+        return pointArray ;
     }
 }
