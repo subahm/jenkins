@@ -34,7 +34,6 @@ import hudson.model.UpdateCenter;
 import hudson.model.UpdateSite;
 import hudson.util.VersionNumber;
 import io.jenkins.lib.versionnumber.JavaSpecificationVersion;
-import jenkins.YesNoMaybe;
 import jenkins.model.Jenkins;
 import jenkins.security.UpdateSiteWarningsMonitor;
 import jenkins.util.java.JavaUtils;
@@ -565,10 +564,10 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
      * Does this plugin supports dynamic loading?
      */
     @Exported
-    public YesNoMaybe supportsDynamicLoad() {
+    public Boolean supportsDynamicLoad() {
         String v = manifest.getMainAttributes().getValue("Support-Dynamic-Loading");
-        if (v==null) return YesNoMaybe.MAYBE;
-        return Boolean.parseBoolean(v) ? YesNoMaybe.YES : YesNoMaybe.NO;
+        if (v==null) return false;
+        return Boolean.parseBoolean(v) ? true : false;
     }
 
     /**

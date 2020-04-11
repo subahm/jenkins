@@ -57,7 +57,6 @@ import jenkins.ExtensionRefreshException;
 import jenkins.InitReactorRunner;
 import jenkins.MissingDependencyException;
 import jenkins.RestartRequiredException;
-import jenkins.YesNoMaybe;
 import jenkins.install.InstallState;
 import jenkins.install.InstallUtil;
 import jenkins.model.Jenkins;
@@ -910,7 +909,7 @@ public abstract class PluginManager extends AbstractModelObject implements OnMas
             if (p == null) {
                 p = strategy.createPluginWrapper(arc);
             }
-            if (p.supportsDynamicLoad()== YesNoMaybe.NO)
+            if (p.supportsDynamicLoad()== false)
                 throw new RestartRequiredException(Messages._PluginManager_PluginDoesntSupportDynamicLoad_RestartRequired(sn));
 
             // there's no need to do cyclic dependency check, because we are deploying one at a time,
